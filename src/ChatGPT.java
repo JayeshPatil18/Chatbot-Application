@@ -4,8 +4,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Scanner;
 
-import org.json.JSONObject;
-
 public class ChatGPT {
     public String takeInput() {        
         Scanner scanner = new Scanner(System.in);
@@ -46,13 +44,17 @@ public class ChatGPT {
                 response.append(line);
               }
               reader.close();
-              
-               JSONObject json = new JSONObject(response.toString());
+
+              String json = response.toString(); // your JSON string
+              int startIndex = 12; // index of the start of the value
+              int endIndex = json.length() - 2; // index of the end of the value
+              String value = json.substring(startIndex, endIndex); // extract the value
+
                
                System.out.print("Result: ");
       
               // Print the JSON response
-              return json.getString("message");
+              return value;
             } else {
               System.out.println("API request failed with response code " + responseCode);
             }

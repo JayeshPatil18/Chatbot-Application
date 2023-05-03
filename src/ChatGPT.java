@@ -46,7 +46,7 @@ public class ChatGPT {
               reader.close();
 
               String json = response.toString(); // your JSON string
-              int startIndex = 12; // index of the start of the value
+              int startIndex = json.indexOf(":") + 2; // index of the start of the value
               int endIndex = json.length() - 2; // index of the end of the value
               String value = json.substring(startIndex, endIndex); // extract the value
 
@@ -69,9 +69,16 @@ public class ChatGPT {
         
         while(true) {
         	String input = chatGPT.takeInput();
-        	System.out.println("Loading...");
-        	System.out.println(chatGPT.takeResponse(input));
-        	System.out.println();
+        	
+        	if (input.length() == 0) {
+        		System.out.println("Chat Exited");
+        	    break;
+        	} else {
+        	    // Normal input
+        		System.out.println("Loading...");
+            	System.out.println(chatGPT.takeResponse(input));
+            	System.out.println();
+        	}        	
         }
     }
 }
